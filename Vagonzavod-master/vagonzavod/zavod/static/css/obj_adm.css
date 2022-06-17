@@ -1,0 +1,31 @@
+
+#pr{
+    background-color: aliceblue;
+    border-radius: 20px;
+    border-color: aquamarine;
+    
+}
+
+
+.tr-productos > td > img{
+    width: 200px;
+    height: 200px;
+}
+.tr-name > th{
+    text-align: justify;
+    background-color:#c6c6c6;
+}
+
+.tr-productos>td{
+    background-color: aliceblue;
+    text-align: center;
+    font-size: 20px;
+}
+.tr-productos>.desc{
+    text-align: left;
+
+}
+
+#btnes> a{
+    margin-top: 100%;
+}

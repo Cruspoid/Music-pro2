@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Gestión de productos{%endblock title%}
+
+{%block content%}
+
+<link rel="stylesheet" href="{% static 'css/obj_adm.css' %}">
+
+<div class="container">
+    <div class="container-sm ">
+
+        <div id="pr" class="justify-content-center ms-auto mb-3">
+        <h1 class="d-flex justify-content-center ms-auto">GESTIÓN DE PRODUCTOS </h1>
+        <form class="d-flex mb-3 " method="GET">{% csrf_token %}
+          <div class="flex">
+            <a href="{% url 'app_zavod:add_prd' %}" class="btn btn-success">Agregar Productos</a>
+          </div>
+            <div class="d-flex justify-content-end ms-auto">
+            <div class="d-flex ">
+                <input type="text" id="kword" name="kword" placeholder="Buscar propducto...">
+            </div>
+            
+            <div class="d-flex">
+               <button type="submit" class="btn btn-success">Buscar</button>
+            </div>
+            
+            </div>
+        </div>
+
+        </form>
+        <div class="d-flex flex-row">
+            <table class="table">
+                <thead>
+                  <tr class="tr-name">
+                    <th scope="col">ID</th>
+                    <th scope="col">NOMBRE</th>
+                    <th scope="col">IMAGEN</th>
+                    <th scope="col">VALOR</th>
+                    <th scope="col">CANTIDAD</th>
+                    <th scope="col">TIPO</th>
+                    <th scope="col">DESCRIPCIÓN</th>
+                    <th scope="col">ACTION</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for p in productos %}
+                  <tr class="tr-productos">
+                        <td>{{p.idProducto}}</td>
+                        <td>{{p.nombre_producto}}</td>
+                        <td>
+                            <img src="{{p.image.url}}"></td>
+                        <td>{{p.valor}}</td>
+                        <td>{{p.cantidad}}</td>
+                        <td>{{p.tipo_motor}}</td>
+                        <td class="desc">{{p.descripcion}}</td>
+
+                        <td class="form-group">
+                          
+                          
+                          <a class="btn btn-success btn-block" id="btns" style="margin-top: 20%;" href="{% url 'app_zavod:update_prd' p.idProducto %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                          
+                          <a class="btn btn-danger btn-block" id="btns" style="margin-top: 20%;" href="{% url 'app_zavod:delete_prd' p.idProducto %}"><i class="fa-solid fa-trash"></i></a>
+                          <a class="btn btn-warning btn-block" id="btns" style="margin-top: 20%;" href="{% url 'app_zavod:detalle_producto' p.idProducto %}"><i class="fa-solid fa-eye"></i></a>
+                        </td>
+                        
+                  </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+        </div>
+
+        <div class="d-flex">
+            {% if is_paginated %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    
+                    {% if page_obj.has_previous %}
+                    <li class="page-link">
+                        <a href="?page={{page_obj.previous_page_number}}">Atras</a></li>
+                    {% endif %}
+                        
+                    
+                    {% for pagina in paginator.page_range %}
+
+                    {% if pagina == page_obj.number %}
+                    <li class="page-link active" aria-current="page">{{pagina}}</li>
+                    {% else %}
+                    <li class="page-link"><a href="?page={{pagina}}">{{pagina}}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                        
+                    {% if page_obj.has_next %}
+                  <li class="page-link">
+                    <a href="?page={{page_obj.next_page_number}}">Adelante</a></li>
+                    {% endif%}
+                </ul>
+              </nav>
+              {% endif %}
+        </div>
+    </div>
+   
+</div>
+
+<script src="https://kit.fontawesome.com/84732d52eb.js" crossorigin="anonymous"></script>
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% extends "./base.html" %}
+<title>{%block title%}Bienvenidos!{% endblock %}</title>
+
+{%block content%}
+{%load static%}
+<link rel="stylesheet" href="{% static 'css/loginandregister.css' %}">
+
+
+
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cool Login form | By Code Info</title>
+  <link rel="stylesheet" href="style.css">
+   <!-- Font Awesome Cdn Link -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>HOLA!</h1>
+    <p>Bienvenido<br> Ingrese sus  datos</p>
+    <form method="POST">{% csrf_token %}
+      <input class="inpt" name="username" type="text" placeholder="Nombre">
+
+      <input class="inpt" name="password" type="password" placeholder="Password">
+
+      <button class="boton" type="submit">Iniciar Sesion</button>
+    </form>
+  
+    <div class="not-member">
+      No tienes Cuenta? <a href="{% url 'users_app:user_register' %}">Registrate</a>
+    </div>
+  </div>
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "./base.html" %}
+<title>{%block title%}Productos{% endblock %}</title>
+{% block content%}
+
+    <div class="container">
+
+        <div class="row">
+            <div class="title-novedades">
+                <h1>Lista de Motores</h1>
+            </div>
+            {% for e in producto%}
+          <div class="card-group col-sm-4 card-deck">
+            <div class="card" style="width: 18rem;">
+                <a href="{% url 'app_zavod:detalle_producto' e.idProducto %}"><img src="{{e.image.url}}" id="kword" name="kword"class="card-img-top" alt="..."></a> 
+                <div class="card-body">
+                  <p class="card-text"><h3>{{e.nombre_producto}}</h3><h3>${{e.valor}}</h3></p>
+                </div>
+              </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+{% endblock %}

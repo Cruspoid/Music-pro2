@@ -1,0 +1,101 @@
+{% extends "./base.html" %}
+<title>{%block title%}Agregar Producto{% endblock %}</title>
+
+{%block content%}
+{%load static%}
+
+<div class="container">
+    <h1 style="text-align: center;">Agregar</h1>
+<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+  
+
+
+        <br>
+
+        <div class="row">
+        <div class="col">
+          <label for="id_nombre_producto">Nombre Producto </label>
+          <input type="text" name="nombre_producto" maxlength="100" required class="form-control" id="id_nombre_producto" value="{{producto.nombre_producto}}" placeholder="Modificar Nombre">
+          <small id="id_nombre_producto" class="form-text text-muted">Modifica el nombre del producto.</small>
+        </div>
+
+        <br>
+
+        <div class="col">
+          <label for="id_imagen">Imagen</label>
+          <input type="file" name="image" accept="image/*" class="form-control" id="id_image" aria-describedby="emailHelp">
+        </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col">
+          <label for="id_valor">Valor Producto </label>
+          <input type="number" name="valor"  required class="form-control" id="id_valor" value="{{producto.valor}}" aria-describedby="emailHelp" placeholder="Ingrese valor">
+          <small id="id_valor" class="form-text text-muted">Modifica el valor del producto.</small>
+        </div>
+
+        <br>
+        
+        <div class="col">
+          <label for="id_nombre_producto">Stock Producto </label>
+          <input type="number" name="cantidad"  required class="form-control" id="id_cantidad" value="{{producto.cantidad}}" aria-describedby="emailHelp" placeholder="Ingrese cantidad">
+          <small id="emailHelp" class="form-text text-muted">Modifica el stock del producto.</small>
+        </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col">
+          <label for="id_nombre_producto">Descripción Producto</label>
+          <textarea type="text" name="descripcion" maxlength="100" required class="form-control" id="id_nombre_producto" aria-describedby="emailHelp" placeholder="Ingrese descripción">{{producto.descripcion}}</textarea>
+          <small id="emailHelp" class="form-text text-muted">Modifica la descripción del producto.</small>
+        </div>
+        </div>
+        
+        <br>
+
+        <div class="form-group">
+          <label for="id_tipo_motor">Tipo Motor </label>
+          
+          <select class="form-select" name="tipo_motor" id="id_tipo_motor">
+            <option value selected>Seleccionar{{producto.tipo_motor}}</option>
+            <br>
+            <option value="DIESEL">DIESEL</option>
+            <option value="PETROL">PETROL</option>
+            <option value="GAS">GAS</option>
+        </select>
+          
+          <small id="id_tipo_motor" class="form-text text-muted">Editar tipo de motor</small>
+        </div>
+
+        <br>
+        
+        <div class="row">
+        <div class="col">
+          <label for="id_caballos_fuerza">Caballos de Fuerza</label>
+          <input type="number" name="caballos_fuerza"  required class="form-control" id="id_caballos_fuerza" value="{{producto.caballos_fuerza}}" aria-describedby="emailHelp" placeholder="Ingrese la cantidad de caballos de fuerza">
+          <small id="caballos_fuerza" class="form-text text-muted">Modifica el nombre del producto.</small>
+        </div>
+        
+        <br>
+
+        <div class="col">
+          <label for="id_peso">Peso Producto </label>
+          <input type="text" name="peso"  required class="form-control" id="id_peso" value="{{producto.peso}}"  aria-describedby="emailHelp" placeholder="Ingrese peso">
+          <small id="id_peso" class="form-text text-muted">Modifica el nombre del producto.</small>
+        </div>
+        </div>
+        <br>
+
+        <a href="{% url 'app_zavod:obj_adm' %}" class="btn btn-warning"><i class="fa-solid fa-arrow-left"></i>Volver</a>
+        
+        <button  type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Agregar</button>
+        
+      
+</form>
+
+</div>
+
+
+{%endblock%}

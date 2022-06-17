@@ -1,0 +1,16 @@
+{% extends "./base.html" %}
+<title>{%block title%}Bienvenidos!{% endblock %}</title>
+
+{%block content%}
+{%load static%}
+<div class="container">
+    <div class="field">
+        <h1>Eliminar</h1>
+        <form method="post">{% csrf_token %}
+            <p>Confirme que desea eliminar</p>
+            <button type="submit" class="btn btn-danger btn-block"><i class="fa-solid fa-trash"></i>Confirmar</button>
+            <a href="{% url 'app_zavod:obj_adm' %}" class="btn btn-warning"><i class="fa-solid fa-arrow-left"></i>Volver</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

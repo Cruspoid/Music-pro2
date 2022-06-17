@@ -1,0 +1,46 @@
+{% extends "./base.html" %}
+<title>{%block title%}Bienvenidos!{% endblock %}</title>
+
+{%block content%}
+{%load static%}
+<link rel="stylesheet" href="{% static 'css/loginandregister.css' %}">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cool Login form | By Code Info</title>
+  <link rel="stylesheet" href="style.css">
+   <!-- Font Awesome Cdn Link -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>HOLA!</h1>
+    <p>Bienvenido<br> Ingrese sus  datos</p>
+    <form method="POST">{% csrf_token %}
+      <input class="inpt" name="username" type="text" required id="id_username" placeholder="nombre para iniciar sesion">
+      <input class="inpt" name="nombres" type="text" required id="id_nombres" placeholder="Nombre">
+      <input class="inpt" name="apellidos" type="text" required id="id_apellidos" placeholder="Apellido">
+      <input class="inpt" name="email" type="email" required id="id_email" placeholder="Email">
+      <select class="inpt" name="genero" id="id_genero" placeholder="Genero">
+          <option value selected>- Sexo -</option>
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+          <option value="O">Otro</option>
+      </select>
+      <input class="inpt" name="password1" type="password" required id="id_password1" placeholder="Password">
+      <input class="inpt" name="password2" type="password" required id="id_password2" placeholder="Password">
+
+      <button class="boton" type="submit">Registrarse</button>
+    </form>
+  
+    <div class="not-member">
+      Ya tienes Cuenta? <a href="{% url 'users_app:user_login' %}">Inicia sesion</a>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+
+{% endblock %}

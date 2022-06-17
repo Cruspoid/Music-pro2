@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webpay - Validación</title>
+</head>
+<body>
+  <p id="iw_p">
+    Validando pago..
+  </p>
+
+  <a href="/">Volver a la pagina principal</a>
+
+  <script>
+    const BASE_URL = "https://transbank-api-v2.vercel.app/api"
+    const $p = document.getElementById("iw_p");
+
+    async function main() {
+      const { token_ws } = Object.fromEntries(new URLSearchParams(window.location.search));
+
+      if (!token_ws) {
+        $p.textContent = "No se a podido validar tu pago, razón: falta el query token_ws en la url"
+        return
+      }
+
+      const payload = {
+        token_ws: token_ws
+      }
+
+      try {
+        const fetching = await fetch(
+          `${BASE_URL}/validate-payment`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+          }
+        );
+
+        const data = await fetching.json();
+
+        if (data.message !== "OK") {
+          $p.textContent = data.message
+          return
+        }
+
+        const webpayData = data.data
+
+        console.log(webpayData)
+
+        $p.textContent = `Tu pago a sido realizado satisfactoriamente!, tu id de compra: ${webpayData.buy_order}`
+      }
+
+      catch(e) {
+        console.error(e);
+        console.error("main() Error");
+      }
+    }
+    main()
+  </script>
+</body>
+</html>
