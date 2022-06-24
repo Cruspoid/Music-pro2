@@ -1,0 +1,33 @@
+{%load static%}
+<div class="iw_cart">
+  <div class="iw_icon">
+    <img src="{% static 'img/cart.svg' %}" />
+  </div>
+
+  <div class="iw_products">
+  </div>
+</div>
+
+<script>
+  const $products = document.querySelector(".iw_products")
+  const $iconCart = document.querySelector(".iw_icon")
+
+  $iconCart.addEventListener("click", () => {
+    if ($products.classList.contains("active")) {
+      $products.classList.remove("active")
+      return
+    }
+
+    $products.classList.add("active")
+  })
+
+  const getProductsLS = getCartProducts()
+
+  getProductsLS.forEach(({id, img, name, price, quantity}) => {
+    const $template = productTemplate({ id, img, name, price, quantity })
+
+    $products.appendChild($template)
+  })
+
+
+</script>

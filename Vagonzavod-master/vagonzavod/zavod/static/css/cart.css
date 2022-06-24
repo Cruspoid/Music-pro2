@@ -1,0 +1,128 @@
+:root {
+  --ICON_SIZE: 24px
+}
+
+.iw_cart {
+  margin-right: 1rem;
+  position: relative;
+}
+
+.iw_cart .iw_icon {
+  cursor: pointer
+}
+
+.iw_cart .iw_products {
+  position: absolute;
+  top: 205%;
+  right: 0%;
+  background: #F8F9FA;
+  z-index: 99999;
+  min-width: 35rem;
+  max-width: 40rem;
+  border-radius: 0.25rem;
+  border: 2px solid #ccc;
+  max-height: 350px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition-property: opacity, visibility;
+  transition-duration: 0.3s;
+}
+
+.iw_cart .iw_products.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.iw_cart .iw_products .iw_product .iw_img {
+  min-width: 50px;
+  min-height: 50px;
+  max-height: 50px;
+  max-width: 50px;
+  margin-right: 0.5rem;
+}
+
+.iw_cart .iw_products .iw_product {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem;
+}
+
+.iw_cart .iw_products .iw_product .iw_left {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  margin-right: 0.25rem
+}
+
+.iw_cart .iw_products .iw_product .iw_left p {
+  margin-bottom: 0 !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.iw_cart .iw_products .iw_product img {
+  min-width: 50px;
+  min-height: 50px;
+  max-height: 50px;
+  max-width: 50px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0.25rem;
+}
+
+.iw_cart .iw_products .iw_product .iw_right {
+  display: flex;
+  align-items: center;
+}
+
+.iw_cart .iw_products .iw_product .iw_right {
+  display: flex;
+  align-items: center
+}
+
+.iw_cart .iw_products .iw_product .iw_right .iw_right-left {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem
+}
+
+.iw_cart .iw_products .iw_product .iw_right .iw_right-right {
+  display: flex;
+  align-items: center
+}
+
+.iw_cart .iw_products .iw_product .iw_right .iw_right-left button {
+  width: 25px;
+  height: 25px;
+  border: none;
+  outline: none;
+  border-radius: 0.25rem;
+}
+
+.iw_cart .iw_products .iw_product .iw_right .iw_right-left span {
+  margin: 0 0.25rem;
+}
+
+.iw_cart .iw_products .iw_product .iw_right .iw_right-left button:first-child {
+  background: green;
+}
+
+.iw_cart .iw_products .iw_product .iw_right .iw_right-left button:last-child {
+  background: red;
+}
+
+.iw_cart .iw_products .iw_product .iw_right .iw_right-right span {
+  margin-right: 0.25rem;
+}
+
+.iw_cart .iw_products .iw_product .iw_right .iw_right-right img {
+  min-width: var(--ICON_SIZE);
+  min-height: var(--ICON_SIZE);
+  max-width: var(--ICON_SIZE);
+  max-height: var(--ICON_SIZE);
+  cursor: pointer
+}

@@ -15,6 +15,7 @@
             <input type="hidden" name="token_ws" />
             {% if request.user.is_authenticated %}
             <button id="iw_button" type="submit" disabled>Comprar</button>
+            <button id="iw_button-add-cart" type="button">Agregar al carrito</button>
             {%else%}
             <button type="submit" disabled>Comprar</button>
             <small id="id_peso" class="form-text text-muted">Debe tener una sesión iniciada para realizar compra.</small>
@@ -60,8 +61,34 @@
   const BASE_URL = "https://transbank-api-v2.vercel.app/api"
   const $form = document.getElementById("iw_form");
   const $button = document.getElementById("iw_button");
-  //const productName = "{{producto.nombre_producto}}"
-  const productPrice = "{{producto.valor}}";
+  const $buttonAddCart = document.getElementById("iw_button-add-cart")
+  const productName = "{{producto.nombre_producto}}"
+  const productPrice = "{{producto.valor}}"
+  const productImage = "{{producto.image.url}}"
+
+  const urlPatterns = new URLPattern({ pathname: "/detalle_producto/:id" })
+
+  $buttonAddCart.addEventListener("click", () => {
+    let url = window.location.href
+
+    if (url.endsWith("/")) url = url.slice(0, url.length - 1)
+
+    const exec = urlPatterns.exec(url)
+
+    if (!exec) {
+      console.log("???")
+      return
+    }
+
+    const { id } = exec.pathname.groups
+
+    pushProductCart({
+      id,
+      img: productImage,
+      price: parseInt(productPrice),
+      name: productName
+    })
+  })
 
   async function main() {
     /*if (!productName || typeof productName !== "string") {
