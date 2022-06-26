@@ -126,3 +126,26 @@
   max-height: var(--ICON_SIZE);
   cursor: pointer
 }
+
+.iw_cart .iw_products .iw_buttons {
+  border-top: 2px solid #000000;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.iw_cart .iw_products .iw_buttons button {
+  background: #250187;
+  color: #FFFFFF;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem
+}
+
+.iw_cart .iw_products .iw_buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

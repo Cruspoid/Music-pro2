@@ -58,7 +58,6 @@
 </form>
 
 <script>
-  const BASE_URL = "https://transbank-api-v2.vercel.app/api"
   const $form = document.getElementById("iw_form");
   const $button = document.getElementById("iw_button");
   const $buttonAddCart = document.getElementById("iw_button-add-cart")
@@ -115,7 +114,7 @@
         buy_order: `ORDER-${dateNow}`,
         session_id: `SESSION-${dateNow}`,
         amount: parseProductPrice,
-        return_url: "http://localhost:8000/validar-compra"
+        return_url: RETURN_URL
       }
 
       const fetching = await fetch(

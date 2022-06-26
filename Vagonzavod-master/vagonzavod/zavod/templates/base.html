@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="{% static 'css/cart.css' %}">
     <script>
-      const productsClassName = ".iw_products"
+      const BASE_URL = "https://transbank-api-v2.vercel.app/api"
+      const RETURN_URL = "http://localhost:8000/validar-compra"
+      const productsClassName = ".iw_list"
       const LS_CART = "iw_my_cart"
 
       function productTemplate({ id, name, img, price, quantity = 1 }) {
@@ -65,6 +67,7 @@
           localStorage.setItem(LS_CART, JSON.stringify(filter))
 
           $products.removeChild($div)
+          updateTotal()
         })
 
         $plusBtn.addEventListener("click", () => {
@@ -80,6 +83,7 @@
           $spanTotal.textContent = `$${price * quantity}`
 
           localStorage.setItem(LS_CART, JSON.stringify(getProducts))
+          updateTotal()
         })
 
         $minusBtn.addEventListener("click", () => {
@@ -95,6 +99,7 @@
           $spanTotal.textContent = `$${price * quantity}`
 
           localStorage.setItem(LS_CART, JSON.stringify(getProducts))
+          updateTotal()
         })
 
         $divRight.appendChild($divRightLeft)
@@ -181,6 +186,23 @@
         }
 
         localStorage.setItem(LS_CART, JSON.stringify(getProducts))
+        updateTotal()
+      }
+
+      function updateTotal() {
+        const $spanTotalPrice = document.getElementById("iw_total_price")
+
+        if (!$spanTotalPrice) return
+
+        const ls_product = getCartProducts()
+
+        const total = ls_product.reduce((acc, value) => {
+          acc += value.price * value.quantity
+
+          return acc
+        }, 0)
+
+        $spanTotalPrice.textContent = total.toString()
       }
     </script>
 <title>{%block title%}{% endblock %}</title>

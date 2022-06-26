@@ -53,6 +53,7 @@
         console.log(webpayData)
 
         $p.textContent = `Tu pago a sido realizado satisfactoriamente!, tu id de compra: ${webpayData.buy_order}`
+        localStorage.removeItem("iw_my_cart")
       }
 
       catch(e) {

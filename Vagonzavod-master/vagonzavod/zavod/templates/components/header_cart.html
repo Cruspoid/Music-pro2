@@ -5,12 +5,30 @@
   </div>
 
   <div class="iw_products">
+    <div class="iw_list">
+    </div>
+
+    <div class="iw_buttons">
+      <div>
+        Total: $<span id="iw_total_price">0</span>
+      </div>
+      <button id="iw_pay" type="button">Pagar</button>
+    </div>
   </div>
+
+  <form id="iw_webpay">
+    <input
+      type="hidden"
+      name="token_ws"
+    />
+  </form>
 </div>
 
 <script>
   const $products = document.querySelector(".iw_products")
+  const $list = document.querySelector(".iw_list")
   const $iconCart = document.querySelector(".iw_icon")
+  const $payBtn = document.getElementById("iw_pay")
 
   $iconCart.addEventListener("click", () => {
     if ($products.classList.contains("active")) {
@@ -23,11 +41,69 @@
 
   const getProductsLS = getCartProducts()
 
-  getProductsLS.forEach(({id, img, name, price, quantity}) => {
-    const $template = productTemplate({ id, img, name, price, quantity })
+  getProductsLS.forEach((value, index) => {
+    const $template = productTemplate(value)
 
-    $products.appendChild($template)
+    $list.appendChild($template)
+
+    if (index === getProductsLS.length - 1) {
+      updateTotal()
+    }
   })
 
+  $payBtn.addEventListener("click", async () => {
+    const ls_products = getCartProducts()
+
+    const total = ls_products.reduce((acc, value) => {
+      acc += value.price * value.quantity
+
+      return acc
+    }, 0)
+
+    if (total <= 0) {
+      alert("No tienes productos para comprar")
+      return
+    }
+
+    const dateNow = new Date().getTime()
+
+    const payload = {
+      buy_order: `CART-ORDER-${dateNow}`,
+      session_id: `SESSION-${dateNow}`,
+      amount: total,
+      return_url: RETURN_URL
+    }
+
+    $payBtn.setAttribute("disabled", "")
+
+    try {
+      const data = await fetch(`${BASE_URL}/create-payment`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      })
+        .then(res => res.json())
+
+      if (data.message !== "OK") {
+        alert(data.message)
+        $payBtn.removeAttribute("disabled")
+        return
+      }
+
+      const $form = document.getElementById("iw_webpay")
+      const $input = document.querySelector("#iw_webpay input[name='token_ws']")
+      $form.setAttribute("action", data.data.url)
+      $input.value = data.data.token
+
+      $form.submit()
+    }
+
+    catch(e) {
+      console.error(e)
+      console.error("Fetch() Error")
+    }
+  })
 
 </script>
